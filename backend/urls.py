@@ -10,5 +10,5 @@ apiRouter.register('task', views.TaskViewset)
 # urls provided by the backend
 urlpatterns = [
     path('api/', include(apiRouter.urls)),
-
+    path('', views.index, name='index')
 ]
