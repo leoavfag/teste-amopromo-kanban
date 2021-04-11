@@ -4,7 +4,7 @@ import { TaskContainer, TaskInput, DeleteTaskButton } from './styles';
 
 interface TaskProps {
   value: string;
-  onChange: () => void;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => Promise<void>;
   onDelete: () => void;
 }
 

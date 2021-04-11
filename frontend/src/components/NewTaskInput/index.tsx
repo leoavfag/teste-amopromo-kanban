@@ -21,14 +21,19 @@ const NewTaskInput = ({
     content: '',
     column,
   });
+  const [value, setValue] = useState<string>('');
 
-  function setNewTask(e: React.ChangeEvent<HTMLInputElement>): void {
-    setNewItem({ content: e.target.value, column: '' });
+  function setNewTask(e: React.ChangeEvent<HTMLTextAreaElement>): void {
+    setNewItem({ content: e.target.value, column });
+    setValue(e.target.value);
   }
 
   function submit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
-    onSubmit(newItem);
+    if (value !== '') {
+      onSubmit(newItem);
+      setValue('');
+    }
   }
 
   return (
@@ -36,6 +41,7 @@ const NewTaskInput = ({
       <NewTaskForm onSubmit={submit}>
         <NewTaskFormInput
           placeholder="Digite uma nova tarefa"
+          value={value}
           onChange={setNewTask}
         />
         <NewTaskFormButton type="submit">Adicionar</NewTaskFormButton>
