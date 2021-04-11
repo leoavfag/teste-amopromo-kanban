@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import TextareaAutosize from 'react-textarea-autosize';
 
 export const TaskContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 5px;
   padding: 10px;
   border-radius: 4px;
@@ -12,7 +13,7 @@ export const TaskContainer = styled.div`
   box-shadow: 0px 3px 14px 1px rgba(0, 0, 0, 0.34);
 `;
 
-export const TaskInput = styled.textarea`
+export const TaskContent = styled(TextareaAutosize)`
   border: none;
   outline: none;
   font-size: 18px;
@@ -23,7 +24,28 @@ export const TaskInput = styled.textarea`
   margin-right: 5px;
 `;
 
+export const TaskTitle = styled.input`
+  border: none;
+  outline: none;
+  font-size: 16px;
+  width: 100%;
+  text-align: center;
+`;
+
 export const DeleteTaskButton = styled.button`
-  width: 20%;
+  background: transparent;
+  border: none;
+  width: 10%;
   font-size: 14px;
+  align-self: flex-end;
+`;
+
+export const ContentRow = styled.div`
+  border-top: 1px solid black;
+  margin-top: 5px;
+  padding-top: 5px;
+  display: flex;
+  flex-direction: row;
+  background: white;
+  width: 100%;
 `;

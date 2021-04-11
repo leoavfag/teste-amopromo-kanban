@@ -4,10 +4,12 @@ export const KanbanContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
 
   width: 100%;
-  max-width: 1120px;
   height: 100vh;
   margin: 0 auto;
+
+  overflow-x: scroll;
+  overflow-y: hidden;
 `;

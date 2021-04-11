@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import TextareaAutosize from 'react-textarea-autosize';
 
 export const NewTaskContainer = styled.div`
   display: flex;
@@ -14,7 +15,7 @@ export const NewTaskContainer = styled.div`
 
 export const NewTaskForm = styled.form``;
 
-export const NewTaskFormInput = styled.textarea`
+export const NewTaskFormInput = styled(TextareaAutosize)`
   border: none;
   outline: none;
   font-size: 18px;
@@ -22,8 +23,24 @@ export const NewTaskFormInput = styled.textarea`
   overflow-y: hidden;
   font-size: 14px;
   width: 100%;
+  margin-right: 5px;
+`;
+
+export const NewTaskTitle = styled.input`
+  text-align: center;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid black;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  font-size: 16px;
+  width: 100%;
 `;
 
 export const NewTaskFormButton = styled.button`
   font-size: 14px;
+  background: transparent;
+  border: none;
+  width: 10%;
+  align-self: flex-end;
 `;

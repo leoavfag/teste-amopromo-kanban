@@ -1,18 +1,40 @@
 import React from 'react';
+import { FiX } from 'react-icons/fi';
 
-import { TaskContainer, TaskInput, DeleteTaskButton } from './styles';
+import {
+  TaskContainer,
+  TaskContent,
+  DeleteTaskButton,
+  TaskTitle,
+  ContentRow,
+} from './styles';
 
 interface TaskProps {
+  title: string;
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => Promise<void>;
+  onContentChange: (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => Promise<void>;
+  onTitleChange: (event: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
   onDelete: () => void;
 }
 
-const Task = ({ value, onChange, onDelete }: TaskProps): React.ReactElement => {
+const Task = ({
+  title,
+  value,
+  onContentChange,
+  onTitleChange,
+  onDelete,
+}: TaskProps): React.ReactElement => {
   return (
     <TaskContainer>
-      <TaskInput value={value} onChange={onChange} />
-      <DeleteTaskButton onClick={onDelete}>Excluir</DeleteTaskButton>
+      <DeleteTaskButton onClick={onDelete}>
+        <FiX />
+      </DeleteTaskButton>
+      <TaskTitle value={title} onChange={onTitleChange} />
+      <ContentRow>
+        <TaskContent value={value} onChange={onContentChange} maxLength={200} />
+      </ContentRow>
     </TaskContainer>
   );
 };
