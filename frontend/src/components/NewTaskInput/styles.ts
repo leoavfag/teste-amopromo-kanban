@@ -22,7 +22,7 @@ export const NewTaskFormInput = styled(TextareaAutosize)`
   resize: none;
   overflow-y: hidden;
   font-size: 14px;
-  width: 100%;
+  width: 85%;
   margin-right: 5px;
 `;
 

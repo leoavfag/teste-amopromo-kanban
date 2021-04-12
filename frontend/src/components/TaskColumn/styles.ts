@@ -8,7 +8,7 @@ export const ColumnContainer = styled.div`
   border-radius: 4px;
   margin: 10px;
   padding: 10px;
-  width: 25%;
+  min-width: 272px;
   background: #f0f0f5;
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.4);
   border-radius: 8px;
