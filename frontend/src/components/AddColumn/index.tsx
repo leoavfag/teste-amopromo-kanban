@@ -33,7 +33,7 @@ const AddColumn = ({
 
   return (
     <AddColumnContainer>
-      <AddColumnInput value={value} onChange={handleInputText} maxLength={9} />
+      <AddColumnInput value={value} onChange={handleInputText} maxLength={11} />
       <AddColumnFormButton onClick={handleButtonClick}>
         <FiPlus />
       </AddColumnFormButton>

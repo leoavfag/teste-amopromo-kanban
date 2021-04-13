@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const ColumnContainer = styled.div`
+interface TaskColumnProps {
+  column: string;
+}
+
+export const ColumnContainer = styled.div<TaskColumnProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,13 +13,24 @@ export const ColumnContainer = styled.div`
   margin: 10px;
   padding: 10px;
   min-width: 272px;
-  background: #f0f0f5;
-  box-shadow: 0 0 100px rgba(0, 0, 0, 0.4);
+  max-width: 272px;
+  ${({ column }) => {
+    if (column === 'To do') {
+      return `background: #FA8072;`;
+    }
+    if (column === 'In progress') {
+      return `background: #00BFFF;`;
+    }
+    if (column === 'Done') {
+      return `background: #7CFC00;`;
+    }
+    return `background: #f0f0f5;`;
+  }}
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
   border-radius: 8px;
-
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 90%;
+  height: 80%;
 
   ::-webkit-scrollbar-track {
     background-color: #f4f4f4;
@@ -23,6 +38,7 @@ export const ColumnContainer = styled.div`
   ::-webkit-scrollbar {
     width: 6px;
     background: #f4f4f4;
+    border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb {
     background: #dad7d7;

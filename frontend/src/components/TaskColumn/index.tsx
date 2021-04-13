@@ -13,12 +13,16 @@ import Task from '../Task';
 
 interface TaskColumnProps {
   column: string;
+  columnIndex: number;
+  columns: string[];
   data: taskResponse[];
   setData: (data: taskResponse[]) => void;
 }
 
 const TaskColumn = ({
   column,
+  columnIndex,
+  columns,
   data,
   setData,
 }: TaskColumnProps): React.ReactElement => {
@@ -81,7 +85,7 @@ const TaskColumn = ({
     itensCopy.splice(index, 1, {
       title: e.target.value,
       id: itensCopy[index].id,
-      content: itensCopy[index].column,
+      content: itensCopy[index].content,
       column: itensCopy[index].column,
     });
     setData(itensCopy);
@@ -90,6 +94,42 @@ const TaskColumn = ({
       title: e.target.value,
       content: itensCopy[index].content,
       column: itensCopy[index].column,
+    };
+
+    try {
+      await axios.put(`/api/task/${itensCopy[index].id}/`, newTaskData);
+    } catch (error) {
+      const response = await axios.get<taskResponse>(
+        `/api/task/${itensCopy[index].id}`,
+      );
+      itensCopy.splice(index, 1, {
+        id: response.data.id,
+        title: response.data.title,
+        content: response.data.content,
+        column: response.data.column,
+      });
+      setData(itensCopy);
+      alert('Erro ao alterar a tarefa, tente novamente.');
+    }
+  }
+
+  async function updateTaskColumn(
+    columnName: string,
+    index: number,
+  ): Promise<void> {
+    const itensCopy = Array.from(data);
+    itensCopy.splice(index, 1, {
+      title: itensCopy[index].title,
+      id: itensCopy[index].id,
+      content: itensCopy[index].content,
+      column: columnName,
+    });
+    setData(itensCopy);
+
+    const newTaskData = {
+      title: itensCopy[index].title,
+      content: itensCopy[index].content,
+      column: columnName,
     };
 
     try {
@@ -121,34 +161,43 @@ const TaskColumn = ({
   }
 
   return (
-    <ColumnContainer>
-      <ColumnTitleContainer>
-        <ColumnTitle>{column}</ColumnTitle>
-        <AddTaskButton onClick={() => setNewTaskVisibility(!newTaskVisibility)}>
-          <FiPlus />
-        </AddTaskButton>
-      </ColumnTitleContainer>
-      {newTaskVisibility && (
-        <NewTaskInput onSubmit={addNewTask} column={column} />
-      )}
-      {data &&
-        data.map((tsk, index) => {
-          return tsk.column === column ? (
-            <Task
-              key={tsk.id}
-              title={tsk.title}
-              value={tsk.content}
-              onContentChange={(
-                event: React.ChangeEvent<HTMLTextAreaElement>,
-              ) => updateTaskContent(event, index)}
-              onTitleChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                updateTaskTitle(event, index)
-              }
-              onDelete={() => deleteTask(index)}
-            />
-          ) : null;
-        })}
-    </ColumnContainer>
+    <>
+      <ColumnContainer column={column}>
+        <ColumnTitleContainer>
+          <ColumnTitle>{column}</ColumnTitle>
+          <AddTaskButton
+            onClick={() => setNewTaskVisibility(!newTaskVisibility)}
+          >
+            <FiPlus />
+          </AddTaskButton>
+        </ColumnTitleContainer>
+        {newTaskVisibility && (
+          <NewTaskInput onSubmit={addNewTask} column={column} />
+        )}
+        {data &&
+          data.map((tsk, index) => {
+            return tsk.column === column ? (
+              <Task
+                key={tsk.id}
+                columnIndex={columnIndex}
+                columns={columns}
+                title={tsk.title}
+                value={tsk.content}
+                updateTaskColumn={(columnName) =>
+                  updateTaskColumn(columnName, index)
+                }
+                onContentChange={(
+                  event: React.ChangeEvent<HTMLTextAreaElement>,
+                ) => updateTaskContent(event, index)}
+                onTitleChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  updateTaskTitle(event, index)
+                }
+                onDelete={() => deleteTask(index)}
+              />
+            ) : null;
+          })}
+      </ColumnContainer>
+    </>
   );
 };
 

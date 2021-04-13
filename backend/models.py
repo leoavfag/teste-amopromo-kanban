@@ -10,7 +10,7 @@ class Task(models.Model):
 
     title = models.CharField(max_length=20)
     content = models.CharField(max_length=200)
-    column = models.CharField(max_length=9)
+    column = models.CharField(max_length=11)
 
     def __str__(self):
         return self.content
