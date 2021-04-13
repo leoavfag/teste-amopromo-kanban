@@ -12,7 +12,7 @@ export const KanbanColumns = styled.div`
   flex-direction: row;
 
   width: 100%;
-  height: calc(90vh);
+  height: 90vh;
   margin: 0 auto;
 
   overflow-x: scroll;
@@ -26,5 +26,5 @@ export const KanbanHeader = styled.header`
 `;
 
 export const ImageKanban = styled.img`
-  width: 5%;
+  width: 50px;
 `;
